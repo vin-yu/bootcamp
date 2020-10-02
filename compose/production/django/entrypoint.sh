@@ -7,37 +7,32 @@ set -o nounset
 
 cmd="$@"
 
-if [ -z "${POSTGRES_USER}" ]; then
-    # the official postgres image uses 'postgres' as default user if not set explictly.
-    export POSTGRES_USER=postgres
-fi
-export DATABASE_URL="postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}"
-
-postgres_ready() {
+mssql_ready() {
 python << END
-import sys
 
-import psycopg2
+import sys
+import pyodbc 
+
+server = 'mssql' 
+database = "${MSSQL_DB}"
+username = "${MSSQL_ADMIN}"
+password = "${SA_PASSWORD}"
 
 try:
-    psycopg2.connect(
-        dbname="${POSTGRES_DB}",
-        user="${POSTGRES_USER}",
-        password="${POSTGRES_PASSWORD}",
-        host="postgres"
-    )
-except psycopg2.OperationalError:
+    cnxn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};SERVER='+server+';DATABASE='+database+';UID='+username+';PWD='+ password)
+    cursor = cnxn.cursor()
+except pyodbc.Error as err:
     sys.exit(-1)
 sys.exit(0)
 
 END
 }
 
-until postgres_ready; do
-  >&2 echo 'PostgreSQL is unavailable (sleeping)...'
+until mssql_ready; do
+  >&2 echo 'mssql is unavailable (sleeping)...'
   sleep 1
 done
 
->&2 echo 'PostgreSQL is up - continuing...'
+>&2 echo 'mssql is up - continuing...'
 
 exec $cmd
