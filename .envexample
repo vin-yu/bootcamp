@@ -14,6 +14,14 @@ DATABASE_URL=postgresql://postgres@127.0.0.1:5432/bootcamp
 # Domain name, used by caddy
 # DOMAIN_NAME=http://trybootcamp.vitorfs.com
 
+
+# MSSQL conf
+MSSQL_ADMIN=sa
+SA_PASSWORD=superpassword
+MSSQL_DB=master
+ACCEPT_EULA=Y
+
+
 # General settings
 READ_DOT_ENV_FILE=True
 ADMIN_URL=
@@ -40,4 +48,4 @@ SECURE_SSL_REDIRECT=False
 SENTRY_DSN=
 
 # URL for Redis
-REDIS_URL=redis://127.0.0.1:6379
+REDIS_URL=redis://redis:6379

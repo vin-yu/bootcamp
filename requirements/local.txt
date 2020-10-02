@@ -3,6 +3,8 @@
 ipdb #  https://github.com/gotcha/ipdb
 Werkzeug  # https://github.com/pallets/werkzeug
 psycopg2-binary # https://github.com/psycopg/psycopg2
+# django-pyodbc-azure-2019 # https://github.com/escuccim/django-pyodbc-azure
+django-mssql-backend # https://github.com/ESSolutions/django-mssql-backend
 
 # Testing
 # ------------------------------------------------------------------------------

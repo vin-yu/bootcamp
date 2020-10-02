@@ -18,6 +18,16 @@ services:
     ports:
       - "8000:8000"
     command: /start.sh
+  
+  mssql:
+    image: mcr.microsoft.com/mssql/server
+    env_file: .env
+    #environment:
+    #  SA_PASSWORD: "1234qwerASDF"
+    #  ACCEPT_EULA: "Y"
+    #  MSSQL_AGENT_ENABLED: "true"
+    ports:
+      - "1433:1433"
 
   postgres:
     build:

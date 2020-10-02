@@ -18,14 +18,14 @@ class MessageQuerySet(models.query.QuerySet):
         """Returns all the messages sent between two users."""
         qs_one = self.filter(sender=sender, recipient=recipient)
         qs_two = self.filter(sender=recipient, recipient=sender)
-        return qs_one.union(qs_two).order_by("timestamp")
+        return qs_one.order_by("timestamp")
 
     def get_most_recent_conversation(self, recipient):
         """Returns the most recent conversation counterpart's username."""
         try:
             qs_sent = self.filter(sender=recipient)
             qs_recieved = self.filter(recipient=recipient)
-            qs = qs_sent.union(qs_recieved).latest("timestamp")
+            qs = qs_sent.latest("timestamp")
             if qs.sender == recipient:
                 return qs.recipient
 

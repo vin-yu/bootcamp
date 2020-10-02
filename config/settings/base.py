@@ -40,7 +40,21 @@ USE_TZ = True
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-DATABASES = {"default": env.db("DATABASE_URL")}
+# DATABASES = {"default": env.db("DATABASE_URL_MSSQL")}
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'sql_server.pyodbc',
+        'NAME': env("MSSQL_DB"),
+        'USER': env("MSSQL_ADMIN"),
+        'PASSWORD': env("SA_PASSWORD"),
+        'HOST': 'mssql',
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
+    },
+}
+
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # URLS
