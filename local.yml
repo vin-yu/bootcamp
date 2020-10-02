@@ -29,14 +29,14 @@ services:
     ports:
       - "1433:1433"
 
-  postgres:
-    build:
-      context: .
-      dockerfile: ./compose/production/postgres/Dockerfile
-    volumes:
-      - postgres_data_local:/var/lib/postgresql/data
-      - postgres_backup_local:/backups
-    env_file: .env
+  #postgres:
+  #  build:
+  #    context: .
+  #    dockerfile: ./compose/production/postgres/Dockerfile
+  #  volumes:
+  #    - postgres_data_local:/var/lib/postgresql/data
+  #    - postgres_backup_local:/backups
+  #  env_file: .env
 
   redis:
     image: redis:5.0
